@@ -7,14 +7,10 @@
   <title>Login Biblioteca</title>
 </head>
 
-<h1> BIENVENIDO A LA BIBLIOTECA! </h1>
-<br>
-<h2> inicia sesion con tus credenciales </h2>
-<br>
+
 
 <body>
-
-
+<?php include("php/header.php"); ?>
 <form action="procesologin.php" method="post">
     <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
     <input type="password" id="password" name="password" placeholder="Contraseña" required>
@@ -22,6 +18,6 @@
 </form>
 
 <script src="scripLogin.js" type="text/javascript"></script>
-  
+<?php include("php/footer.php"); ?>  
 </body>
 </html>
