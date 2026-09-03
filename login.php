@@ -21,32 +21,7 @@
     <button type="submit" id="btnSubmit" disabled>Entrar</button>
 </form>
 
-
-<script>
-
-    const usuarioInput = document.getElementById('usuario');
-    const passwordInput = document.getElementById('password');
-    const btnSubmit = document.getElementById('btnSubmit');
-
-    // Verifica que haya al menos una letra o número
-    const contieneLetraONumero = /[a-zA-Z0-9]/;
-
-    function validarCampos() {
-
-        const usuarioValido =
-            contieneLetraONumero.test(usuarioInput.value);
-
-        const passwordValida =
-            contieneLetraONumero.test(passwordInput.value);
-
-        // Si los dos son válidos habilita el botón
-        btnSubmit.disabled = !(usuarioValido && passwordValida);
-    }
-
-    usuarioInput.addEventListener('input', validarCampos);
-    passwordInput.addEventListener('input', validarCampos);
-
-</script>
+<script src="scripLogin.js" type="text/javascript"></script>
   
 </body>
 </html>
