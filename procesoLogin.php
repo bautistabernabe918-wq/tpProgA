@@ -4,8 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Biblioteca</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<?php include("php/header.php"); ?>
+
+<div class="resultado">
 <?php
 
 
@@ -19,17 +25,23 @@ $password = $_POST['password'] ?? '';
 $usuario_correcto = "fcytuader";
 $password_correcta = "programacionavanzada";
 
-// 4. Validar las credenciales
+
 if ($usuario === $usuario_correcto && $password === $password_correcta) {
    
     $_SESSION['logueado'] = true;
     $_SESSION['usuario'] = $usuario;
     
-    echo "¡Te logueaste bien! Bienvenido, " . htmlspecialchars($usuario);
+    echo '<div class="ficha-resultado">
+        <span class="sello sello--ok">Acceso concedido</span>
+        <p>¡Te logueaste bien! Bienvenido, ' . htmlspecialchars($usuario) . '</p>
+    </div>';
 } else {
     echo '
-    <p>Usuario o contraseña incorrectos.</p>
-    <p>Volviendo al inicio en <span id="contador">5</span> segundos...</p>
+    <div class="ficha-resultado">
+        <span class="sello sello--error">Acceso denegado</span>
+        <p>Usuario o contraseña incorrectos.</p>
+        <p>Volviendo al inicio en <span id="contador">5</span> segundos...</p>
+    </div>
 
     <script>
         let segundos = 5;
@@ -47,6 +59,8 @@ if ($usuario === $usuario_correcto && $password === $password_correcta) {
 ';
 }
 ?>
+</div>
 
+<?php include("php/footer.php"); ?>
 </body>
 </html>

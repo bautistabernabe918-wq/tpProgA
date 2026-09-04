@@ -1,0 +1,310 @@
+/* =========================================================
+   Biblioteca UADER — identidad "ficha de catálogo"
+   Paleta: verde biblioteca, pergamino, vino, tinta, dorado
+   ========================================================= */
+
+:root {
+  --verde:            #1F3D2E;
+  --verde-oscuro:      #142A1F;
+  --pergamino:         #F4EDDC;
+  --pergamino-linea:   #E1D3AE;
+  --vino:              #7A2E2E;
+  --vino-oscuro:       #5A2020;
+  --tinta:             #2B241C;
+  --dorado:            #B08D57;
+  --hueso:             #FBF8F1;
+
+  --fuente-titulo: 'Lora', Georgia, 'Times New Roman', serif;
+  --fuente-campo:  'Courier Prime', 'Courier New', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--verde-oscuro);
+  background-image:
+    radial-gradient(circle at 50% 0%, var(--verde) 0%, var(--verde-oscuro) 70%);
+  color: var(--tinta);
+  font-family: var(--fuente-titulo);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------------------------------------------------------
+   Encabezado — como un cartel de madera en la entrada
+   --------------------------------------------------------- */
+header {
+  text-align: center;
+  color: var(--hueso);
+  padding: 3rem 1.5rem 2.5rem;
+  border-bottom: 1px solid rgba(176, 141, 87, 0.5);
+}
+
+header h1 {
+  font-family: var(--fuente-titulo);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  letter-spacing: 0.02em;
+  margin: 0 0 0.5rem;
+}
+
+header p {
+  font-style: italic;
+  color: var(--dorado);
+  margin: 0;
+  font-size: 1rem;
+}
+
+header img {
+  display: block;
+  margin: 1.25rem auto 0;
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid var(--dorado);
+  background: var(--verde-oscuro);
+}
+
+header hr {
+  display: none; /* la línea la resuelve el border-bottom del header */
+}
+
+/* ---------------------------------------------------------
+   Contenido principal — la ficha bibliográfica
+   --------------------------------------------------------- */
+main,
+body > form {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem;
+}
+
+form {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  background: var(--pergamino);
+  border: 1px solid var(--dorado);
+  padding: 2.75rem 2rem 2.25rem;
+  box-shadow: 0 18px 40px -12px rgba(20, 42, 31, 0.55);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+/* pestaña de ficha, como las guías de un fichero */
+form::before {
+  content: "Ingreso de socios";
+  position: absolute;
+  top: -1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dorado);
+  color: var(--verde-oscuro);
+  font-family: var(--fuente-campo);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  padding: 0.35rem 0.75rem;
+  text-transform: uppercase;
+}
+
+/* renglones de la ficha, como una tarjeta de catálogo rayada */
+form::after {
+  content: "";
+  position: absolute;
+  inset: 3.5rem 2rem 2rem;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2.05rem,
+    var(--pergamino-linea) 2.05rem,
+    var(--pergamino-linea) calc(2.05rem + 1px)
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+form > * {
+  position: relative;
+  z-index: 1;
+}
+
+form input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--pergamino-linea);
+  background: transparent;
+  padding: 0.4rem 0.1rem;
+  font-family: var(--fuente-campo);
+  font-size: 1rem;
+  color: var(--tinta);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+form input::placeholder {
+  font-family: var(--fuente-titulo);
+  font-style: italic;
+  color: #8a7f6c;
+}
+
+form input:focus {
+  border-bottom: 2px solid var(--vino);
+}
+
+form input:focus-visible {
+  outline: 2px solid var(--dorado);
+  outline-offset: 3px;
+}
+
+/* el navegador le pone su propio fondo (blanco/amarillo) a los campos
+   de usuario y contraseña al autocompletar; lo reemplazamos por el
+   pergamino de la ficha */
+form input:-webkit-autofill,
+form input:-webkit-autofill:hover,
+form input:-webkit-autofill:focus,
+form input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--tinta);
+  caret-color: var(--tinta);
+  -webkit-box-shadow: 0 0 0 30px var(--pergamino) inset;
+  box-shadow: 0 0 0 30px var(--pergamino) inset;
+  transition: background-color 9999s ease-in-out 0s;
+  font-family: var(--fuente-campo);
+}
+
+form button {
+  margin-top: 0.5rem;
+  align-self: center;
+  min-width: 60%;
+  background: var(--vino);
+  color: var(--hueso);
+  border: 1px solid var(--vino-oscuro);
+  font-family: var(--fuente-titulo);
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  padding: 0.65rem 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+form button:hover:not(:disabled) {
+  background: var(--vino-oscuro);
+}
+
+form button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+form button:focus-visible {
+  outline: 2px solid var(--dorado);
+  outline-offset: 3px;
+}
+
+form button:disabled {
+  background: #a9a08d;
+  border-color: #948b78;
+  color: #f1ede2;
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------
+   Resultado del login (procesoLogin.php)
+   --------------------------------------------------------- */
+.resultado {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem;
+}
+
+.ficha-resultado {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: var(--pergamino);
+  border: 1px solid var(--dorado);
+  padding: 2.5rem 2rem;
+  box-shadow: 0 18px 40px -12px rgba(20, 42, 31, 0.55);
+  text-align: center;
+}
+
+.sello {
+  display: inline-block;
+  border: 3px double currentColor;
+  padding: 0.3rem 1.1rem;
+  font-family: var(--fuente-campo);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  transform: rotate(-3deg);
+  margin-bottom: 1rem;
+}
+
+.sello--ok {
+  color: var(--verde);
+}
+
+.sello--error {
+  color: var(--vino);
+}
+
+.ficha-resultado p {
+  margin: 0.4rem 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.ficha-resultado #contador {
+  font-family: var(--fuente-campo);
+  color: var(--vino);
+  font-weight: bold;
+}
+
+/* ---------------------------------------------------------
+   Pie de página
+   --------------------------------------------------------- */
+footer {
+  text-align: center;
+  color: var(--dorado);
+  border-top: 1px solid rgba(176, 141, 87, 0.5);
+  padding: 1.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+footer hr {
+  display: none;
+}
+
+footer p {
+  margin: 0.15rem 0;
+  color: var(--hueso);
+  opacity: 0.85;
+}
+
+/* ---------------------------------------------------------
+   Accesibilidad / responsive
+   --------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  form button {
+    transition: none;
+  }
+}
+
+@media (max-width: 420px) {
+  form,
+  .ficha-resultado {
+    max-width: 100%;
+  }
+}
