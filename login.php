@@ -22,7 +22,7 @@
 </form>
 </main>
 
-<script src="scripLogin.js" type="text/javascript"></script>
+<script src="js/scripLogin.js" type="text/javascript"></script>
 <?php include("php/footer.php"); ?>  
 </body>
 </html>
