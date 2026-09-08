@@ -23,7 +23,6 @@ class ValidadorDatos {
 
   
   iniciarEventos() {
-    // Usamos bind(this) o arrow functions para no perder la referencia a la clase
     this.usuarioInput.addEventListener('input', () => this.validarCampos());
     this.passwordInput.addEventListener('input', () => this.validarCampos());
   }
