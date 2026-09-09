@@ -98,6 +98,17 @@
   }
 }
 
+@keyframes mensajePagoEntra {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -154,6 +165,7 @@ header hr {
   display: none; 
 }
 
+
 main,
 main {
   flex: 1;
@@ -164,6 +176,7 @@ main {
   gap: 2.25rem;
   padding: 2.5rem 1.5rem;
 }
+
 
 .ornamento {
   display: flex;
@@ -192,6 +205,7 @@ main {
   flex-shrink: 0;
 }
 
+/* fila central: silueta — ficha — silueta */
 .login-area {
   display: flex;
   align-items: center;
@@ -246,6 +260,7 @@ form {
   gap: 1.4rem;
   animation: fichaEntra 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
 }
+
 
 form::before {
   content: "Ingreso de socios";
@@ -344,6 +359,7 @@ form button:disabled {
   cursor: not-allowed;
 }
 
+
 .resultado {
   flex: 1;
   display: flex;
@@ -362,6 +378,177 @@ form button:disabled {
   box-shadow: 0 18px 40px -12px rgba(20, 42, 31, 0.55);
   text-align: center;
   animation: fichaEntra 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.ficha-resultado.saliendo {
+  opacity: 0;
+  transform: translateY(-14px) scale(0.98);
+}
+
+/* pantalla ficticia post login */
+
+.panel-premium {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: var(--pergamino);
+  border: 1px solid var(--dorado);
+  padding: 2.5rem 2rem 2rem;
+  box-shadow: 0 18px 40px -12px rgba(20, 42, 31, 0.55);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.panel-premium.oculto {
+  display: none;
+}
+
+.panel-premium.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.panel-premium__titulo {
+  margin: 0;
+  font-family: var(--fuente-titulo);
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--tinta);
+}
+
+.panel-premium__subtitulo {
+  margin: 0;
+  font-family: var(--fuente-titulo);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: #55493a;
+}
+
+.planes {
+  display: flex;
+  flex-direction: column;
+}
+
+.plan {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+}
+
+.plan + .plan {
+  border-top: 1px solid var(--pergamino-linea);
+}
+
+.plan__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.plan__nombre {
+  font-family: var(--fuente-titulo);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--tinta);
+}
+
+.plan__precio {
+  font-family: var(--fuente-campo);
+  font-size: 0.82rem;
+  color: var(--vino);
+}
+
+.plan__boton {
+  flex-shrink: 0;
+  background: var(--vino);
+  color: var(--hueso);
+  border: 1px solid var(--vino-oscuro);
+  font-family: var(--fuente-titulo);
+  font-size: 0.82rem;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.plan__boton:hover {
+  background: var(--vino-oscuro);
+  transform: translateY(-2px);
+}
+
+.plan__boton:active {
+  transform: scale(0.96);
+}
+
+.plan__boton:focus-visible {
+  outline: 2px solid var(--dorado);
+  outline-offset: 2px;
+}
+
+.panel-premium__mensaje {
+  min-height: 1.3em;
+  margin: 0;
+  font-family: var(--fuente-campo);
+  font-size: 0.82rem;
+  color: var(--vino);
+}
+
+.panel-premium__mensaje.mostrar {
+  animation: mensajePagoEntra 0.3s ease;
+}
+
+.panel-premium__letra-chica {
+  margin: 0.2rem 0 0;
+  font-family: var(--fuente-titulo);
+  font-style: italic;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: var(--dorado);
+  opacity: 0.85;
+}
+
+.panel-premium__volver {
+  align-self: center;
+  margin-top: 0.3rem;
+  background: transparent;
+  border: 1px solid var(--dorado);
+  color: var(--tinta);
+  font-family: var(--fuente-titulo);
+  font-size: 0.88rem;
+  padding: 0.55rem 1.4rem;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.panel-premium__volver:hover {
+  background: var(--dorado);
+  color: var(--verde-oscuro);
+}
+
+.panel-premium__volver:focus-visible {
+  outline: 2px solid var(--dorado);
+  outline-offset: 2px;
+}
+
+@media (max-width: 460px) {
+  .plan {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .plan__boton {
+    width: 100%;
+  }
 }
 
 .sello {
@@ -397,6 +584,7 @@ form button:disabled {
   font-weight: bold;
 }
 
+
 footer {
   text-align: center;
   color: var(--dorado);
@@ -415,8 +603,13 @@ footer p {
   opacity: 0.85;
 }
 
+
 @media (prefers-reduced-motion: reduce) {
-  form button {
+  form button,
+  .ficha-resultado,
+  .panel-premium,
+  .plan__boton,
+  .panel-premium__volver {
     transition: none;
   }
 
@@ -428,7 +621,8 @@ footer p {
   .sello,
   .ornamento,
   .decoracion,
-  .frase {
+  .frase,
+  .panel-premium__mensaje.mostrar {
     animation: none;
   }
 }
