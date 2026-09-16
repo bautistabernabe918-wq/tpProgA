@@ -56,7 +56,7 @@
 
   </div>
 
-  <p class="frase">— Todo el conocimiento, en un solo lugar. —</p>
+  <p class="frase">— eh logi. —</p>
 
 </main>
 
