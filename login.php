@@ -1,3 +1,23 @@
+<?php
+session_start();
+
+if (!empty($_SESSION['logueado']) && $_SESSION['logueado'] === true) {
+    header('Location: inicio.php');
+    exit;
+}
+
+if (empty($_SESSION['captcha'])) {
+    $caracteres = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    $captcha = '';
+    for ($i = 0; $i < 5; $i++) {
+        $captcha .= $caracteres[rand(0, strlen($caracteres) - 1)];
+    }
+    $_SESSION['captcha'] = strtoupper($captcha);
+}
+
+$error = $_SESSION['error'] ?? '';
+unset($_SESSION['error']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +28,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime(__DIR__ . '/css/style.css'); ?>">
 </head>
-
-
 
 <body>
 <?php include("php/header.php"); ?>
@@ -36,9 +54,20 @@
       </svg>
     </div>
 
-    <form action="procesologin.php" method="post">
+    <form action="procesoLogin.php" method="post">
         <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
         <input type="password" id="password" name="password" placeholder="Contraseña" required>
+
+        <div class="captcha-box">
+          <label for="captcha">Captcha</label>
+          <div class="captcha-code" aria-live="polite"><?php echo htmlspecialchars($_SESSION['captcha']); ?></div>
+          <input type="text" id="captcha" name="captcha" placeholder="Ingrese el captcha" required>
+        </div>
+
+        <?php if (!empty($error)) : ?>
+            <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
+        <?php endif; ?>
+
         <button type="submit" id="btnSubmit" disabled>Entrar</button>
     </form>
 
@@ -56,7 +85,7 @@
 
   </div>
 
-  <p class="frase">— eh logi. —</p>
+  <p class="frase">— Todo el conocimiento, en un solo lugar. —</p>
 
 </main>
 

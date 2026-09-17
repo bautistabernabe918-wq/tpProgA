@@ -18,14 +18,20 @@ session_start();
 
 $usuario = $_POST['usuario'] ?? '';
 $password = $_POST['password'] ?? '';
+$captchaIngresado = strtoupper(trim((string) ($_POST['captcha'] ?? '')));
+$captchaGuardado = strtoupper((string) ($_SESSION['captcha'] ?? ''));
 
+if ($captchaIngresado !== $captchaGuardado) {
+    unset($_SESSION['captcha']);
+    $_SESSION['error'] = 'Captcha incorrecto.';
+}
 
-$usuario_correcto = "fcytuader";
-$password_correcta = "programacionavanzada";
+$usuario_correcto = 'fcytuader';
+$password_correcta = 'programacionavanzada';
 
-
-if ($usuario === $usuario_correcto && $password === $password_correcta) {
-   
+if ($captchaIngresado === $captchaGuardado && $usuario === $usuario_correcto && $password === $password_correcta) {
+    unset($_SESSION['captcha']);
+    unset($_SESSION['error']);
     $_SESSION['logueado'] = true;
     $_SESSION['usuario'] = $usuario;
     
@@ -72,7 +78,7 @@ if ($usuario === $usuario_correcto && $password === $password_correcta) {
             Oferta válida hasta que el programador termine el proyecto.
         </p>
 
-        <a href="login.php" class="panel-premium__volver">Volver al inicio</a>
+        <a href="login.php" class="panel-premium__volver">Ir al inicio</a>
     </div>
 
     <script>
@@ -126,10 +132,13 @@ if ($usuario === $usuario_correcto && $password === $password_correcta) {
     </script>
 HTML;
 } else {
+    unset($_SESSION['captcha']);
+    $_SESSION['error'] = 'Usuario o contraseña incorrectos.';
+
     echo '
     <div class="ficha-resultado">
         <span class="sello sello--error">Acceso denegado</span>
-        <p>Usuario o contraseña incorrectos.</p>
+        <p>' . (($_SESSION['error'] ?? 'Usuario o contraseña incorrectos.')) . '</p>
         <p>Volviendo al inicio en <span id="contador">5</span> segundos...</p>
     </div>
 
