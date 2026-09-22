@@ -72,7 +72,7 @@ if ($usuario === $usuario_correcto && $password === $password_correcta) {
             Oferta válida hasta que el programador termine el proyecto.
         </p>
 
-        <a href="login.php" class="panel-premium__volver">Volver al inicio</a>
+        <a href="index.php" class="panel-premium__volver">Volver al inicio</a>
     </div>
 
     <script>
@@ -142,7 +142,7 @@ HTML;
 
             if (segundos <= 0) {
                 clearInterval(intervalo);
-                window.location.href = "login.php";
+                window.location.href = "index.php";
             }
         }, 1000);
     </script>
