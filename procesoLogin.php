@@ -13,18 +13,18 @@ $usuarios_validos = [
 $password_correcta = $usuarios_validos[$usuario] ?? null;
 $credencialesValidas = ($usuario !== '' && $password !== '' && $password === $password_correcta);
 
-$recaptchaSecretKey = '6LdcS80tAAAAAGO6MuoLY2YOGnbuVJ-RNH2wIrbS';
+$recaptchaSecretKey = '6Le1TM0tAAAAAFlzM3X-jchqnZOlonf3aeP4jIPy';
 $captchaValido = false;
 
-if ($recaptchaSecretKey !== '6LdcS80tAAAAAGO6MuoLY2YOGnbuVJ-RNH2wIrbS' && $recaptchaResponse !== '') {
-    $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($recaptchaSecretKey) . '&response=' . urlencode($recaptchaResponse));
+if ($recaptchaResponse !== '') {
+    $verifyResponse = @file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($recaptchaSecretKey) . '&response=' . urlencode($recaptchaResponse));
     $captchaData = json_decode($verifyResponse, true);
     $captchaValido = !empty($captchaData['success']) && $captchaData['success'] === true;
 }
 
 if ($captchaValido && $credencialesValidas) {
     unset($_SESSION['error']);
-    session_regenerate_id(true); // Regenerar el ID de sesión para mayor seguridad
+    session_regenerate_id(true);
     $_SESSION['logueado'] = true;
     $_SESSION['usuario'] = $usuario;
 
@@ -32,12 +32,12 @@ if ($captchaValido && $credencialesValidas) {
     exit;
 }
 
-if (!$captchaValido && $credencialesValidas) {
-    $_SESSION['error'] = 'Captcha incorrecto.';
-} else {
+if ($recaptchaResponse !== '' && !$captchaValido) {
+    $_SESSION['error'] = 'Captcha incorrecto. Intentalo de nuevo.';
+} elseif (!$credencialesValidas) {
     $_SESSION['error'] = 'Usuario o contraseña incorrectos.';
 }
 
-header('Location: loginfallido.php');
+header('Location: login.php');
 exit;
 

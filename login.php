@@ -8,7 +8,7 @@ if (!empty($_SESSION['logueado']) && $_SESSION['logueado'] === true) {
 
 $error = $_SESSION['error'] ?? '';
 unset($_SESSION['error']);
-$recaptchaSiteKey = '6LdcS80tAAAAAGO6MuoLY2YOGnbuVJ-RNH2wIrbS';
+$recaptchaSiteKey = '6Le1TM0tAAAAACvxeirW5N62-dAb8khdivkvkn41';
 ?>
 <!DOCTYPE html>
 <html lang="en">
