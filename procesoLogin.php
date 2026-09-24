@@ -1,28 +1,21 @@
 <?php
 session_start();
 
-
 $usuario = $_POST['usuario'] ?? '';
 $password = $_POST['password'] ?? '';
 $captchaIngresado = strtoupper(trim((string) ($_POST['captcha'] ?? '')));
 $captchaGuardado = strtoupper((string) ($_SESSION['captcha'] ?? ''));
 
-if ($captchaIngresado !== $captchaGuardado) {
-    unset($_SESSION['captcha']);
-    $_SESSION['error'] = 'Captcha incorrecto.';
-    header('Location: loginfallido.php');
-    exit;
-}
+$usuario_correcto = 'fcytuader';
+$password_correcta = 'programacionavanzada';
 
-$usuarios_validos = [
-    'fcytuader' => 'programacionavanzada',
-    'admin' => 'admin',
-];
+$captchaValido = ($captchaGuardado !== '' && $captchaIngresado === $captchaGuardado);
+$credencialesValidas = ($usuario === $usuario_correcto && $password === $password_correcta);
 
-$password_correcta = $usuarios_validos[$usuario] ?? null;
+// El captcha se usa una sola vez: se pida de nuevo en el próximo intento.
+unset($_SESSION['captcha']);
 
-if ($usuario !== '' && $password !== '' && $password === $password_correcta) {
-    unset($_SESSION['captcha']);
+if ($captchaValido && $credencialesValidas) {
     unset($_SESSION['error']);
     session_regenerate_id(true); // Regenerar el ID de sesión para mayor seguridad
     $_SESSION['logueado'] = true;
@@ -32,12 +25,14 @@ if ($usuario !== '' && $password !== '' && $password === $password_correcta) {
     exit;
 }
 
-unset($_SESSION['captcha']);
-$_SESSION['error'] = 'Usuario o contraseña incorrectos.';
+// Si el captcha fue el único problema (usuario y contraseña correctos),
+// se lo decimos puntualmente en vez de un mensaje genérico.
+if (!$captchaValido && $credencialesValidas) {
+    $_SESSION['error'] = 'Captcha incorrecto.';
+} else {
+    $_SESSION['error'] = 'Usuario o contraseña incorrectos.';
+}
 
 header('Location: loginfallido.php');
 exit;
 
-
-include("php/footer.php"); 
-?>

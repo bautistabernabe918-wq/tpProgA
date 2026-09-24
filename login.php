@@ -60,7 +60,17 @@ unset($_SESSION['error']);
 
         <div class="captcha-box">
           <label for="captcha">Captcha</label>
-          <div class="captcha-code" aria-live="polite"><?php echo htmlspecialchars($_SESSION['captcha']); ?></div>
+          <div class="captcha-code">
+            <span class="sr-only"><?php echo htmlspecialchars($_SESSION['captcha']); ?></span>
+            <span class="captcha-code__letras" aria-hidden="true">
+              <?php foreach (str_split($_SESSION['captcha']) as $letra) :
+                  $rotacion = rand(-14, 14);
+                  $desplazamiento = rand(-4, 4);
+              ?>
+                <span style="transform: rotate(<?php echo $rotacion; ?>deg) translateY(<?php echo $desplazamiento; ?>px);"><?php echo htmlspecialchars($letra); ?></span>
+              <?php endforeach; ?>
+            </span>
+          </div>
           <input type="text" id="captcha" name="captcha" placeholder="Ingrese el captcha" required>
         </div>
 
