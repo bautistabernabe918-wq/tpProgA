@@ -6,13 +6,16 @@ $password = $_POST['password'] ?? '';
 $captchaIngresado = strtoupper(trim((string) ($_POST['captcha'] ?? '')));
 $captchaGuardado = strtoupper((string) ($_SESSION['captcha'] ?? ''));
 
-$usuario_correcto = 'fcytuader';
-$password_correcta = 'programacionavanzada';
+$usuarios_validos = [
+    'fcytuader' => 'programacionavanzada',
+    'admin' => 'admin',
+];
 
+$password_correcta = $usuarios_validos[$usuario] ?? null;
 $captchaValido = ($captchaGuardado !== '' && $captchaIngresado === $captchaGuardado);
-$credencialesValidas = ($usuario === $usuario_correcto && $password === $password_correcta);
+$credencialesValidas = ($usuario !== '' && $password !== '' && $password === $password_correcta);
 
-// El captcha se usa una sola vez: se pida de nuevo en el próximo intento.
+// El captcha se usa una sola vez: se pide de nuevo en el próximo intento.
 unset($_SESSION['captcha']);
 
 if ($captchaValido && $credencialesValidas) {
@@ -25,8 +28,6 @@ if ($captchaValido && $credencialesValidas) {
     exit;
 }
 
-// Si el captcha fue el único problema (usuario y contraseña correctos),
-// se lo decimos puntualmente en vez de un mensaje genérico.
 if (!$captchaValido && $credencialesValidas) {
     $_SESSION['error'] = 'Captcha incorrecto.';
 } else {
