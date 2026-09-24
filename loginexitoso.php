@@ -21,6 +21,11 @@ if (empty($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
 
 <div class="resultado">
 
+<div class="ficha-resultado">
+    <span class="sello sello--ok">Acceso concedido</span>
+    <p>¡Te logueaste bien! Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario'] ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
+</div>
+
 <div class="panel-premium oculto" id="panelPremium">
     <p class="panel-premium__titulo">Has agotado tus créditos gratuitos.</p>
     <p class="panel-premium__subtitulo">Para continuar utilizando la Biblioteca, necesitás adquirir un plan premium.</p>
@@ -92,25 +97,30 @@ if (empty($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
         panel.classList.add('visible');
     }
 
-      
+    // Espera a que el sello termine de mostrarse y el usuario
+    // alcance a leer el mensaje de bienvenida antes de pasar de etapa.
     setTimeout(function () {
         if (!ficha || reduceMotion) {
             mostrarPanel();
             return;
         }
 
-           
+        // Liberamos la animación de entrada (fichaEntra) antes de
+        // iniciar la transición de salida, para que ambas no compitan
+        // por la misma propiedad y la transición se dispare siempre.
         ficha.style.animation = 'none';
         ficha.classList.add('saliendo');
 
-            
-        /*setTimeout(mostrarPanel, 500);*/
-    }, 375);
+        // Tiempo fijo en vez de esperar 'transitionend': así la etapa 2
+        // aparece siempre, incluso si por algún motivo el navegador
+        // no dispara ese evento.
+        setTimeout(mostrarPanel, 450);
+    }, 2500);
 })();
 </script>
 
 </div>
 
-<?php include("footer.php"); ?>
+<?php include("php/footer.php"); ?>
 </body>
 </html>
