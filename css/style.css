@@ -381,6 +381,17 @@ form input:-webkit-autofill:active {
   gap: 0.55rem;
 }
 
+.g-recaptcha {
+  display: flex;
+  justify-content: center;
+  margin: 0.1rem 0;
+}
+
+.g-recaptcha > div {
+  transform: scale(0.92);
+  transform-origin: center center;
+}
+
 .captcha-box label {
   font-family: var(--fuente-titulo);
   font-style: italic;

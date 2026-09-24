@@ -6,17 +6,9 @@ if (!empty($_SESSION['logueado']) && $_SESSION['logueado'] === true) {
     exit;
 }
 
-if (empty($_SESSION['captcha'])) {
-    $caracteres = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    $captcha = '';
-    for ($i = 0; $i < 5; $i++) {
-        $captcha .= $caracteres[rand(0, strlen($caracteres) - 1)];
-    }
-    $_SESSION['captcha'] = strtoupper($captcha);
-}
-
 $error = $_SESSION['error'] ?? '';
 unset($_SESSION['error']);
+$recaptchaSiteKey = '6LdcS80tAAAAAGO6MuoLY2YOGnbuVJ-RNH2wIrbS';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +19,7 @@ unset($_SESSION['error']);
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime(__DIR__ . '/css/style.css'); ?>">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body class="auth-page">
@@ -59,19 +52,7 @@ unset($_SESSION['error']);
         <input type="password" id="password" name="password" placeholder="Contraseña" required>
 
         <div class="captcha-box">
-          <label for="captcha">Captcha</label>
-          <div class="captcha-code">
-            <span class="sr-only"><?php echo htmlspecialchars($_SESSION['captcha']); ?></span>
-            <span class="captcha-code__letras" aria-hidden="true">
-              <?php foreach (str_split($_SESSION['captcha']) as $letra) :
-                  $rotacion = rand(-14, 14);
-                  $desplazamiento = rand(-4, 4);
-              ?>
-                <span style="transform: rotate(<?php echo $rotacion; ?>deg) translateY(<?php echo $desplazamiento; ?>px);"><?php echo htmlspecialchars($letra); ?></span>
-              <?php endforeach; ?>
-            </span>
-          </div>
-          <input type="text" id="captcha" name="captcha" placeholder="Ingrese el captcha" required>
+          <div class="g-recaptcha" data-sitekey="<?php echo htmlspecialchars($recaptchaSiteKey, ENT_QUOTES, 'UTF-8'); ?>" data-callback="onRecaptchaSuccess" data-expired-callback="onRecaptchaExpired"></div>
         </div>
 
         <?php if (!empty($error)) : ?>

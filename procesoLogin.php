@@ -3,8 +3,7 @@ session_start();
 
 $usuario = $_POST['usuario'] ?? '';
 $password = $_POST['password'] ?? '';
-$captchaIngresado = strtoupper(trim((string) ($_POST['captcha'] ?? '')));
-$captchaGuardado = strtoupper((string) ($_SESSION['captcha'] ?? ''));
+$recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
 
 $usuarios_validos = [
     'fcytuader' => 'programacionavanzada',
@@ -12,11 +11,16 @@ $usuarios_validos = [
 ];
 
 $password_correcta = $usuarios_validos[$usuario] ?? null;
-$captchaValido = ($captchaGuardado !== '' && $captchaIngresado === $captchaGuardado);
 $credencialesValidas = ($usuario !== '' && $password !== '' && $password === $password_correcta);
 
-// El captcha se usa una sola vez: se pide de nuevo en el próximo intento.
-unset($_SESSION['captcha']);
+$recaptchaSecretKey = '6LdcS80tAAAAAGO6MuoLY2YOGnbuVJ-RNH2wIrbS';
+$captchaValido = false;
+
+if ($recaptchaSecretKey !== '6LdcS80tAAAAAGO6MuoLY2YOGnbuVJ-RNH2wIrbS' && $recaptchaResponse !== '') {
+    $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($recaptchaSecretKey) . '&response=' . urlencode($recaptchaResponse));
+    $captchaData = json_decode($verifyResponse, true);
+    $captchaValido = !empty($captchaData['success']) && $captchaData['success'] === true;
+}
 
 if ($captchaValido && $credencialesValidas) {
     unset($_SESSION['error']);
