@@ -323,6 +323,101 @@ form input:-webkit-autofill:active {
   font-family: var(--fuente-campo);
 }
 
+.captcha-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.captcha-box label {
+  font-family: var(--fuente-titulo);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: #55493a;
+}
+
+.captcha-code {
+  position: relative;
+  align-self: flex-start;
+  overflow: hidden;
+  background: var(--verde-oscuro);
+  border: 1px solid var(--dorado);
+  padding: 0.5rem 1rem;
+}
+
+.captcha-code::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    105deg,
+    transparent,
+    transparent 5px,
+    rgba(244, 237, 220, 0.12) 5px,
+    rgba(244, 237, 220, 0.12) 6px
+  );
+  pointer-events: none;
+}
+
+.captcha-code::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -20deg,
+    transparent,
+    transparent 9px,
+    rgba(176, 141, 87, 0.18) 9px,
+    rgba(176, 141, 87, 0.18) 10px
+  );
+  pointer-events: none;
+}
+
+.captcha-code__letras {
+  position: relative;
+  display: inline-flex;
+  z-index: 1;
+  user-select: none;
+}
+
+.captcha-code__letras span {
+  display: inline-block;
+  color: var(--hueso);
+  font-family: var(--fuente-campo);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  padding: 0 0.06em;
+}
+
+.captcha-code__letras span:nth-child(even) {
+  color: var(--dorado);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.captcha-box input {
+  scroll-margin-top: 5rem;
+}
+
+.error-message {
+  margin: -0.4rem 0 0;
+  font-family: var(--fuente-titulo);
+  font-size: 0.88rem;
+  color: var(--vino);
+  text-align: center;
+}
+
 form button {
   margin-top: 0.5rem;
   align-self: center;
