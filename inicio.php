@@ -19,9 +19,8 @@ if (empty($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
 
 <body>
 <?php include("php/header.php"); ?>
-<main>
-  <p class="frase">— Estamos en inicio.php —</p>
-  <p><a href="logout.php">Cerrar sesión</a></p>
+<main class="home-hero">
+  <a href="logout.php" class="btn-login">Cerrar sesión</a>
 </main>
 <?php include("php/footer.php"); ?>  
 </body>

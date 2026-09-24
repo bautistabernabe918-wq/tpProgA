@@ -196,10 +196,10 @@ main {
   min-width: 220px;
   padding: 0.9rem 1.8rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--vino) 0%, var(--vino-oscuro) 100%);
-  border: 1px solid var(--dorado);
+  background: linear-gradient(135deg, var(--dorado) 0%, #d7b67a 100%);
+  border: 1px solid #d8b97f;
   box-shadow: 0 12px 24px rgba(20, 42, 31, 0.25);
-  color: var(--hueso);
+  color: var(--verde-oscuro);
   font-family: var(--fuente-titulo);
   font-size: 1.05rem;
   font-weight: 600;
