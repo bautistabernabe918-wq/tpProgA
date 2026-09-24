@@ -125,6 +125,12 @@ body {
   flex-direction: column;
 }
 
+body.auth-page {
+  background: linear-gradient(180deg, #244b3d 0%, #142a1f 100%);
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(56, 99, 78, 0.95) 0%, rgba(20, 42, 31, 0.98) 42%);
+}
+
 
 header {
   text-align: center;
@@ -513,7 +519,7 @@ form button:disabled {
   position: relative;
   width: 100%;
   max-width: 380px;
-  background: linear-gradient(135deg, #84827e 0%, #84827e 100%);
+  background: linear-gradient(135deg, #e6dfd4 0%, #d8cec0 100%);
   border: 1px solid var(--dorado);
   padding: 2.5rem 2rem;
   box-shadow: 0 18px 40px -12px rgba(20, 42, 31, 0.55);

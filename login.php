@@ -29,7 +29,7 @@ unset($_SESSION['error']);
   <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime(__DIR__ . '/css/style.css'); ?>">
 </head>
 
-<body>
+<body class="auth-page">
 <?php include("php/header.php"); ?>
 <main>
 
