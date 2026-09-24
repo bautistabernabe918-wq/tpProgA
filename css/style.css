@@ -177,6 +177,51 @@ main {
   padding: 2.5rem 1.5rem;
 }
 
+.home-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 180px;
+}
+
+.btn-login,
+.btn-login:link,
+.btn-login:visited,
+.btn-login:hover,
+.btn-login:active {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  padding: 0.9rem 1.8rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--vino) 0%, var(--vino-oscuro) 100%);
+  border: 1px solid var(--dorado);
+  box-shadow: 0 12px 24px rgba(20, 42, 31, 0.25);
+  color: var(--hueso);
+  font-family: var(--fuente-titulo);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(20, 42, 31, 0.32);
+  filter: brightness(1.04);
+}
+
+.btn-login:active {
+  transform: translateY(0);
+}
+
+.btn-login:focus-visible {
+  outline: 2px solid var(--dorado);
+  outline-offset: 3px;
+}
+
 
 .ornamento {
   display: flex;
