@@ -20,7 +20,8 @@ if (!empty($_SESSION['logueado']) && $_SESSION['logueado'] === true) {
 <body>
 <?php include("php/header.php"); ?>
 <main class="home-hero">
-  <a href="login.php" class="btn-login">Iniciar sesión</a>
+  <p class="bienvenida-central">Bienvenido a la Biblioteca de la Universidad Autónoma de Entre Rios <br>Por favor inicia sesión para administrar tu contenido</p>
+  <a href="login.php" class="btn-login btn-login--compact">Iniciar sesión</a>
 </main>
 <?php include("php/footer.php"); ?>  
 </body>

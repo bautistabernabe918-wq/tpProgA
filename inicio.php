@@ -20,7 +20,7 @@ if (empty($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
 <body>
 <?php include("php/header.php"); ?>
 <main class="home-hero">
-  <a href="logout.php" class="btn-login">Cerrar sesión</a>
+  <p class="bienvenida-central">¡Bienvenido <?php echo htmlspecialchars($_SESSION['usuario'] ?? 'usuario', ENT_QUOTES, 'UTF-8'); ?>!, ¿que vamos a leer hoy?</p>
 </main>
 <?php include("php/footer.php"); ?>  
 </body>

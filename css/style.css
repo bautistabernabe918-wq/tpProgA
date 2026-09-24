@@ -133,6 +133,7 @@ body.auth-page {
 
 
 header {
+  position: relative;
   text-align: center;
   color: var(--hueso);
   padding: 3rem 1.5rem 2.5rem;
@@ -171,6 +172,17 @@ header hr {
   display: none; 
 }
 
+.sesion-activa {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--hueso);
+  font-family: var(--fuente-campo);
+  font-size: 0.8rem;
+}
 
 main,
 main {
@@ -189,6 +201,17 @@ main {
   justify-content: center;
   width: 100%;
   min-height: 180px;
+  line-height: 1.5;
+}
+
+.bienvenida-central {
+  margin: 0;
+  color: var(--dorado);
+  font-family: var(--fuente-titulo);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 500;
+  text-align: center;
+  animation: encabezadoEntra 0.6s ease both;
 }
 
 .btn-login,
@@ -227,6 +250,38 @@ main {
 .btn-login:focus-visible {
   outline: 2px solid var(--dorado);
   outline-offset: 3px;
+}
+
+.btn-login--compact,
+.btn-login--compact:link,
+.btn-login--compact:visited,
+.btn-login--compact:hover,
+.btn-login--compact:active {
+  min-width: 150px;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--dorado);
+  border-radius: 4px;
+  background: var(--verde);
+  box-shadow: 0 4px 10px rgba(20, 42, 31, 0.2);
+  color: var(--hueso);
+  font-size: 0.9rem;
+}
+
+.btn-login--compact:hover {
+  background: var(--verde-oscuro);
+  border-color: #d7b67a;
+  box-shadow: 0 6px 12px rgba(20, 42, 31, 0.3);
+  filter: none;
+}
+
+.sesion-activa .btn-login--compact,
+.sesion-activa .btn-login--compact:link,
+.sesion-activa .btn-login--compact:visited,
+.sesion-activa .btn-login--compact:hover,
+.sesion-activa .btn-login--compact:active {
+  min-width: auto;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.72rem;
 }
 
 
@@ -305,6 +360,7 @@ form {
   max-width: 360px;
   background: var(--pergamino);
   border: 1px solid var(--dorado);
+  border-radius: 8px;
   padding: 2.75rem 2rem 2.25rem;
   box-shadow: 0 18px 40px -12px rgba(20, 42, 31, 0.55);
   display: flex;
@@ -405,6 +461,7 @@ form input:-webkit-autofill:active {
   overflow: hidden;
   background: var(--verde-oscuro);
   border: 1px solid var(--dorado);
+  border-radius: 5px;
   padding: 0.5rem 1rem;
 }
 
@@ -488,6 +545,7 @@ form button {
   background: var(--vino);
   color: var(--hueso);
   border: 1px solid var(--vino-oscuro);
+  border-radius: 5px;
   font-family: var(--fuente-titulo);
   font-size: 1rem;
   letter-spacing: 0.01em;
@@ -532,6 +590,7 @@ form button:disabled {
   max-width: 380px;
   background: linear-gradient(135deg, #e6dfd4 0%, #d8cec0 100%);
   border: 1px solid var(--dorado);
+  border-radius: 8px;
   padding: 2.5rem 2rem;
   box-shadow: 0 18px 40px -12px rgba(20, 42, 31, 0.55);
   text-align: center;
@@ -552,6 +611,7 @@ form button:disabled {
   max-width: 420px;
   background: var(--pergamino);
   border: 1px solid var(--dorado);
+  border-radius: 8px;
   padding: 2.5rem 2rem 2rem;
   box-shadow: 0 18px 40px -12px rgba(20, 42, 31, 0.55);
   text-align: center;
@@ -630,6 +690,7 @@ form button:disabled {
   background: var(--vino);
   color: var(--hueso);
   border: 1px solid var(--vino-oscuro);
+  border-radius: 5px;
   font-family: var(--fuente-titulo);
   font-size: 0.82rem;
   padding: 0.5rem 0.9rem;
@@ -679,6 +740,7 @@ form button:disabled {
   margin-top: 0.3rem;
   background: transparent;
   border: 1px solid var(--dorado);
+  border-radius: 5px;
   color: var(--tinta);
   font-family: var(--fuente-titulo);
   font-size: 0.88rem;
@@ -711,12 +773,12 @@ form button:disabled {
 
 .sello {
   display: inline-block;
-  border: 3px double currentColor;
+  border: 5px double currentColor;
   padding: 0.3rem 1.1rem;
   font-family: var(--fuente-campo);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 0.85rem;
+  font-size: 1rem;
   transform: rotate(-3deg);
   margin-bottom: 1rem;
   animation: selloEntra 0.4s ease-out 0.25s both;
@@ -734,6 +796,7 @@ form button:disabled {
   margin: 0.4rem 0;
   font-size: 1.05rem;
   line-height: 1.5;
+  color: var(--verde-oscuro)
 }
 
 .ficha-resultado #contador {
@@ -786,6 +849,13 @@ footer p {
 }
 
 @media (max-width: 420px) {
+  .sesion-activa {
+    position: static;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
   form,
   .ficha-resultado {
     max-width: 100%;
