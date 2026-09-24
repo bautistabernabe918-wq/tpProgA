@@ -23,7 +23,8 @@ if (empty($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
 
 <div class="ficha-resultado">
     <span class="sello sello--ok">Acceso concedido</span>
-    <p>¡Te logueaste bien! Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario'] ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
+    <h2>¡Bienvenido, <?php echo htmlspecialchars($_SESSION['usuario'] ?? '', ENT_QUOTES, 'UTF-8'); ?>!</h2>
+    <p>¡Te logueaste bien!</p>
 </div>
 
 <div class="panel-premium oculto" id="panelPremium">

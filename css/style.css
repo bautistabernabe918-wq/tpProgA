@@ -196,21 +196,22 @@ main {
   min-width: 220px;
   padding: 0.9rem 1.8rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--dorado) 0%, #d7b67a 100%);
-  border: 1px solid #d8b97f;
-  box-shadow: 0 12px 24px rgba(20, 42, 31, 0.25);
+  background: linear-gradient(135deg, #b9955e 0%, #a9844b 100%);
+  border: 1px solid rgba(216, 185, 127, 0.8);
+  box-shadow: 0 8px 18px rgba(20, 42, 31, 0.18);
   color: var(--verde-oscuro);
   font-family: var(--fuente-titulo);
   font-size: 1.05rem;
   font-weight: 600;
   text-decoration: none;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease, background 0.15s ease;
 }
 
 .btn-login:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 28px rgba(20, 42, 31, 0.32);
-  filter: brightness(1.04);
+  box-shadow: 0 12px 22px rgba(20, 42, 31, 0.28);
+  background: linear-gradient(135deg, #c59c62 0%, #9d7442 100%);
+  filter: saturate(0.9) brightness(0.96);
 }
 
 .btn-login:active {
@@ -512,7 +513,7 @@ form button:disabled {
   position: relative;
   width: 100%;
   max-width: 380px;
-  background: var(--pergamino);
+  background: linear-gradient(135deg, #84827e 0%, #84827e 100%);
   border: 1px solid var(--dorado);
   padding: 2.5rem 2rem;
   box-shadow: 0 18px 40px -12px rgba(20, 42, 31, 0.55);
