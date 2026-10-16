@@ -21,6 +21,7 @@ if (empty($_SESSION['logueado']) || $_SESSION['logueado'] !== true) {
 <?php include("php/header.php"); ?>
 <main class="home-hero">
   <p class="bienvenida-central">¡Bienvenido <?php echo htmlspecialchars($_SESSION['usuario'] ?? 'usuario', ENT_QUOTES, 'UTF-8'); ?>!, ¿que vamos a leer hoy?</p>
+  <a href="libros.php" class="btn-login btn-login--compact">Administrar catálogo de libros</a>
 </main>
 <?php include("php/footer.php"); ?>  
 </body>
