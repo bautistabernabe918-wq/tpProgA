@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+if (!empty($_SESSION['logueado']) && $_SESSION['logueado'] === true) {
+    header('Location: inicio.php');
+    exit;
+}
+
+$error = $_SESSION['error'] ?? '';
+unset($_SESSION['error']);
+$recaptchaSiteKey = '6Le1TM0tAAAAACvxeirW5N62-dAb8khdivkvkn41';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +19,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime(__DIR__ . '/css/style.css'); ?>">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
-
-
-<body>
+<body class="auth-page">
 <?php include("php/header.php"); ?>
 <main>
 
@@ -39,6 +50,15 @@
     <form action="procesoLogin.php" method="post">
         <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
         <input type="password" id="password" name="password" placeholder="Contraseña" required>
+
+        <div class="captcha-box">
+          <div class="g-recaptcha" data-sitekey="<?php echo htmlspecialchars($recaptchaSiteKey, ENT_QUOTES, 'UTF-8'); ?>" data-callback="onRecaptchaSuccess" data-expired-callback="onRecaptchaExpired"></div>
+        </div>
+
+        <?php if (!empty($error)) : ?>
+            <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
+        <?php endif; ?>
+
         <button type="submit" id="btnSubmit" disabled>Entrar</button>
     </form>
 
