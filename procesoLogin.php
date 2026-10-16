@@ -1,38 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Biblioteca</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime(__DIR__ . '/css/style.css'); ?>">
-</head>
-<body>
-
-
-<div class="resultado">
 <?php
-
 session_start();
+
 
 $usuario = $_POST['usuario'] ?? '';
 $password = $_POST['password'] ?? '';
+$captchaIngresado = strtoupper(trim((string) ($_POST['captcha'] ?? '')));
+$captchaGuardado = strtoupper((string) ($_SESSION['captcha'] ?? ''));
 
+if ($captchaIngresado !== $captchaGuardado) {
+    unset($_SESSION['captcha']);
+    $_SESSION['error'] = 'Captcha incorrecto.';
+}
 
-$usuario_correcto = "fcytuader";
-$password_correcta = "programacionavanzada";
+$usuario_correcto = 'fcytuader' && 'admin';
+$password_correcta = 'programacionavanzada' && 'admin';
 
-
-if ($usuario === $usuario_correcto && $password === $password_correcta) {
-   
+if ($captchaIngresado === $captchaGuardado && $usuario === $usuario_correcto && $password === $password_correcta) {
+    unset($_SESSION['captcha']);
+    unset($_SESSION['error']);
+    session_regenerate_id(true); // Regenerar el ID de sesión para mayor seguridad
     $_SESSION['logueado'] = true;
     $_SESSION['usuario'] = $usuario;
-    
-    echo '<div class="ficha-resultado">
-        <span class="sello sello--ok">Acceso concedido</span>
-        <p>¡Te logueaste bien! Bienvenido, ' . htmlspecialchars($usuario) . '</p>
-    </div>';
 
     // Etapa 2: pantalla ficticia de "créditos agotados"
     
@@ -148,9 +136,4 @@ HTML;
     </script>
 ';
 }
-?>
-</div>
 
-<?php include("php/footer.php"); ?>
-</body>
-</html>
