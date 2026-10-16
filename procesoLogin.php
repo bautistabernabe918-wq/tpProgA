@@ -1,17 +1,25 @@
 <?php
 session_start();
 
-$usuario = $_POST['usuario'] ?? '';
+require_once __DIR__ . '/php/conexion.php';
+
+$usuario = trim($_POST['usuario'] ?? '');
 $password = $_POST['password'] ?? '';
 $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
 
-$usuarios_validos = [
-    'fcytuader' => 'programacionavanzada',
-    'admin' => 'admin',
-];
+// Validación de credenciales contra la base de datos usando hash
+$credencialesValidas = false;
+$usuarioDb = null;
 
-$password_correcta = $usuarios_validos[$usuario] ?? null;
-$credencialesValidas = ($usuario !== '' && $password !== '' && $password === $password_correcta);
+if ($usuario !== '' && $password !== '') {
+    $stmt = $pdo->prepare('SELECT id, usuario, password FROM usuarios WHERE usuario = :usuario LIMIT 1');
+    $stmt->execute([':usuario' => $usuario]);
+    $usuarioDb = $stmt->fetch();
+
+    if ($usuarioDb && password_verify($password, $usuarioDb['password'])) {
+        $credencialesValidas = true;
+    }
+}
 
 $recaptchaSecretKey = '6Le1TM0tAAAAAFlzM3X-jchqnZOlonf3aeP4jIPy';
 $captchaValido = false;
@@ -26,7 +34,8 @@ if ($captchaValido && $credencialesValidas) {
     unset($_SESSION['error']);
     session_regenerate_id(true);
     $_SESSION['logueado'] = true;
-    $_SESSION['usuario'] = $usuario;
+    $_SESSION['usuario'] = $usuarioDb['usuario'];
+    $_SESSION['usuario_id'] = $usuarioDb['id'];
 
     header('Location: loginexitoso.php');
     exit;
